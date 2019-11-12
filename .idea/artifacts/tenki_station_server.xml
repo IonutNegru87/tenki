@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="tenki-station-server">
+    <output-path>C:\Projects\Tenki\build\libs</output-path>
+    <root id="archive" name="tenki-station-server.jar">
+      <element id="module-output" name="tenki-station.serverMain" />
+    </root>
+  </artifact>
+</component>
