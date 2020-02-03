@@ -281,754 +281,495 @@ class bsc_xfer_t(rawPtr: NativePtr) : CStructVar(rawPtr) {
         get() = arrayMemberAt(524)
 }
 
-fun gpioInitialise(): Int {
-    return kniBridge0()
-}
-
-fun gpioTerminate(): Unit {
-    return kniBridge1()
-}
-
-fun gpioSetMode(gpio: UInt, mode: UInt): Int {
-    return kniBridge2(gpio, mode)
-}
-
-fun gpioGetMode(gpio: UInt): Int {
-    return kniBridge3(gpio)
-}
-
-fun gpioSetPullUpDown(gpio: UInt, pud: UInt): Int {
-    return kniBridge4(gpio, pud)
-}
-
-fun gpioRead(gpio: UInt): Int {
-    return kniBridge5(gpio)
-}
-
-fun gpioWrite(gpio: UInt, level: UInt): Int {
-    return kniBridge6(gpio, level)
-}
-
-fun gpioPWM(user_gpio: UInt, dutycycle: UInt): Int {
-    return kniBridge7(user_gpio, dutycycle)
-}
-
-fun gpioGetPWMdutycycle(user_gpio: UInt): Int {
-    return kniBridge8(user_gpio)
-}
-
-fun gpioSetPWMrange(user_gpio: UInt, range: UInt): Int {
-    return kniBridge9(user_gpio, range)
-}
-
-fun gpioGetPWMrange(user_gpio: UInt): Int {
-    return kniBridge10(user_gpio)
-}
-
-fun gpioGetPWMrealRange(user_gpio: UInt): Int {
-    return kniBridge11(user_gpio)
-}
-
-fun gpioSetPWMfrequency(user_gpio: UInt, frequency: UInt): Int {
-    return kniBridge12(user_gpio, frequency)
-}
-
-fun gpioGetPWMfrequency(user_gpio: UInt): Int {
-    return kniBridge13(user_gpio)
-}
-
-fun gpioServo(user_gpio: UInt, pulsewidth: UInt): Int {
-    return kniBridge14(user_gpio, pulsewidth)
-}
-
-fun gpioGetServoPulsewidth(user_gpio: UInt): Int {
-    return kniBridge15(user_gpio)
-}
-
-fun gpioSetAlertFunc(user_gpio: UInt, f: gpioAlertFunc_t?): Int {
-    return kniBridge16(user_gpio, f.rawValue)
-}
-
-fun gpioSetAlertFuncEx(user_gpio: UInt, f: gpioAlertFuncEx_t?, userdata: CValuesRef<*>?): Int {
-    memScoped {
-        return kniBridge17(user_gpio, f.rawValue, userdata?.getPointer(memScope).rawValue)
-    }
-}
-
-fun gpioSetISRFunc(gpio: UInt, edge: UInt, timeout: Int, f: gpioISRFunc_t?): Int {
-    return kniBridge18(gpio, edge, timeout, f.rawValue)
-}
-
-fun gpioSetISRFuncEx(gpio: UInt, edge: UInt, timeout: Int, f: gpioISRFuncEx_t?, userdata: CValuesRef<*>?): Int {
-    memScoped {
-        return kniBridge19(gpio, edge, timeout, f.rawValue, userdata?.getPointer(memScope).rawValue)
-    }
-}
-
-fun gpioNotifyOpen(): Int {
-    return kniBridge20()
-}
-
-fun gpioNotifyOpenWithSize(bufSize: Int): Int {
-    return kniBridge21(bufSize)
-}
-
-fun gpioNotifyBegin(handle: UInt, bits: uint32_t): Int {
-    return kniBridge22(handle, bits)
-}
-
-fun gpioNotifyPause(handle: UInt): Int {
-    return kniBridge23(handle)
-}
-
-fun gpioNotifyClose(handle: UInt): Int {
-    return kniBridge24(handle)
-}
-
-fun gpioWaveClear(): Int {
-    return kniBridge25()
-}
-
-fun gpioWaveAddNew(): Int {
-    return kniBridge26()
-}
-
-fun gpioWaveAddGeneric(numPulses: UInt, pulses: CValuesRef<gpioPulse_t>?): Int {
-    memScoped {
-        return kniBridge27(numPulses, pulses?.getPointer(memScope).rawValue)
-    }
-}
-
-fun gpioWaveAddSerial(user_gpio: UInt, baud: UInt, data_bits: UInt, stop_bits: UInt, offset: UInt, numBytes: UInt, str: CValuesRef<ByteVar>?): Int {
-    memScoped {
-        return kniBridge28(user_gpio, baud, data_bits, stop_bits, offset, numBytes, str?.getPointer(memScope).rawValue)
-    }
-}
-
-fun gpioWaveCreate(): Int {
-    return kniBridge29()
-}
-
-fun gpioWaveDelete(wave_id: UInt): Int {
-    return kniBridge30(wave_id)
-}
-
-fun gpioWaveTxSend(wave_id: UInt, wave_mode: UInt): Int {
-    return kniBridge31(wave_id, wave_mode)
-}
-
-fun gpioWaveChain(buf: CValuesRef<ByteVar>?, bufSize: UInt): Int {
-    memScoped {
-        return kniBridge32(buf?.getPointer(memScope).rawValue, bufSize)
-    }
-}
-
-fun gpioWaveTxAt(): Int {
-    return kniBridge33()
-}
-
-fun gpioWaveTxBusy(): Int {
-    return kniBridge34()
-}
-
-fun gpioWaveTxStop(): Int {
-    return kniBridge35()
-}
-
-fun gpioWaveGetMicros(): Int {
-    return kniBridge36()
-}
-
-fun gpioWaveGetHighMicros(): Int {
-    return kniBridge37()
-}
-
-fun gpioWaveGetMaxMicros(): Int {
-    return kniBridge38()
-}
-
-fun gpioWaveGetPulses(): Int {
-    return kniBridge39()
-}
-
-fun gpioWaveGetHighPulses(): Int {
-    return kniBridge40()
-}
-
-fun gpioWaveGetMaxPulses(): Int {
-    return kniBridge41()
-}
-
-fun gpioWaveGetCbs(): Int {
-    return kniBridge42()
-}
-
-fun gpioWaveGetHighCbs(): Int {
-    return kniBridge43()
-}
-
-fun gpioWaveGetMaxCbs(): Int {
-    return kniBridge44()
-}
-
-fun gpioSerialReadOpen(user_gpio: UInt, baud: UInt, data_bits: UInt): Int {
-    return kniBridge45(user_gpio, baud, data_bits)
-}
-
-fun gpioSerialReadInvert(user_gpio: UInt, invert: UInt): Int {
-    return kniBridge46(user_gpio, invert)
-}
-
-fun gpioSerialRead(user_gpio: UInt, buf: CValuesRef<*>?, bufSize: size_t): Int {
-    memScoped {
-        return kniBridge47(user_gpio, buf?.getPointer(memScope).rawValue, bufSize)
-    }
-}
-
-fun gpioSerialReadClose(user_gpio: UInt): Int {
-    return kniBridge48(user_gpio)
-}
-
-fun i2cOpen(i2cBus: UInt, i2cAddr: UInt, i2cFlags: UInt): Int {
-    return kniBridge49(i2cBus, i2cAddr, i2cFlags)
-}
-
-fun i2cClose(handle: UInt): Int {
-    return kniBridge50(handle)
-}
-
-fun i2cWriteQuick(handle: UInt, bit: UInt): Int {
-    return kniBridge51(handle, bit)
-}
-
-fun i2cWriteByte(handle: UInt, bVal: UInt): Int {
-    return kniBridge52(handle, bVal)
-}
-
-fun i2cReadByte(handle: UInt): Int {
-    return kniBridge53(handle)
-}
-
-fun i2cWriteByteData(handle: UInt, i2cReg: UInt, bVal: UInt): Int {
-    return kniBridge54(handle, i2cReg, bVal)
-}
-
-fun i2cWriteWordData(handle: UInt, i2cReg: UInt, wVal: UInt): Int {
-    return kniBridge55(handle, i2cReg, wVal)
-}
-
-fun i2cReadByteData(handle: UInt, i2cReg: UInt): Int {
-    return kniBridge56(handle, i2cReg)
-}
-
-fun i2cReadWordData(handle: UInt, i2cReg: UInt): Int {
-    return kniBridge57(handle, i2cReg)
-}
-
-fun i2cProcessCall(handle: UInt, i2cReg: UInt, wVal: UInt): Int {
-    return kniBridge58(handle, i2cReg, wVal)
-}
-
-fun i2cWriteBlockData(handle: UInt, i2cReg: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge59(handle, i2cReg, buf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun i2cReadBlockData(handle: UInt, i2cReg: UInt, buf: CValuesRef<ByteVar>?): Int {
-    memScoped {
-        return kniBridge60(handle, i2cReg, buf?.getPointer(memScope).rawValue)
-    }
-}
-
-fun i2cBlockProcessCall(handle: UInt, i2cReg: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge61(handle, i2cReg, buf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun i2cReadI2CBlockData(handle: UInt, i2cReg: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge62(handle, i2cReg, buf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun i2cWriteI2CBlockData(handle: UInt, i2cReg: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge63(handle, i2cReg, buf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun i2cReadDevice(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge64(handle, buf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun i2cWriteDevice(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge65(handle, buf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun i2cSwitchCombined(setting: Int): Unit {
-    return kniBridge66(setting)
-}
-
-fun i2cSegments(handle: UInt, segs: CValuesRef<pi_i2c_msg_t>?, numSegs: UInt): Int {
-    memScoped {
-        return kniBridge67(handle, segs?.getPointer(memScope).rawValue, numSegs)
-    }
-}
-
-fun i2cZip(handle: UInt, inBuf: CValuesRef<ByteVar>?, inLen: UInt, outBuf: CValuesRef<ByteVar>?, outLen: UInt): Int {
-    memScoped {
-        return kniBridge68(handle, inBuf?.getPointer(memScope).rawValue, inLen, outBuf?.getPointer(memScope).rawValue, outLen)
-    }
-}
-
-fun bbI2COpen(SDA: UInt, SCL: UInt, baud: UInt): Int {
-    return kniBridge69(SDA, SCL, baud)
-}
-
-fun bbI2CClose(SDA: UInt): Int {
-    return kniBridge70(SDA)
-}
-
-fun bbI2CZip(SDA: UInt, inBuf: CValuesRef<ByteVar>?, inLen: UInt, outBuf: CValuesRef<ByteVar>?, outLen: UInt): Int {
-    memScoped {
-        return kniBridge71(SDA, inBuf?.getPointer(memScope).rawValue, inLen, outBuf?.getPointer(memScope).rawValue, outLen)
-    }
-}
-
-fun bscXfer(bsc_xfer: CValuesRef<bsc_xfer_t>?): Int {
-    memScoped {
-        return kniBridge72(bsc_xfer?.getPointer(memScope).rawValue)
-    }
-}
-
-fun bbSPIOpen(CS: UInt, MISO: UInt, MOSI: UInt, SCLK: UInt, baud: UInt, spiFlags: UInt): Int {
-    return kniBridge73(CS, MISO, MOSI, SCLK, baud, spiFlags)
-}
-
-fun bbSPIClose(CS: UInt): Int {
-    return kniBridge74(CS)
-}
-
-fun bbSPIXfer(CS: UInt, inBuf: CValuesRef<ByteVar>?, outBuf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge75(CS, inBuf?.getPointer(memScope).rawValue, outBuf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun spiOpen(spiChan: UInt, baud: UInt, spiFlags: UInt): Int {
-    return kniBridge76(spiChan, baud, spiFlags)
-}
-
-fun spiClose(handle: UInt): Int {
-    return kniBridge77(handle)
-}
-
-fun spiRead(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge78(handle, buf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun spiWrite(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge79(handle, buf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun spiXfer(handle: UInt, txBuf: CValuesRef<ByteVar>?, rxBuf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge80(handle, txBuf?.getPointer(memScope).rawValue, rxBuf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun serOpen(sertty: CValuesRef<ByteVar>?, baud: UInt, serFlags: UInt): Int {
-    memScoped {
-        return kniBridge81(sertty?.getPointer(memScope).rawValue, baud, serFlags)
-    }
-}
-
-fun serClose(handle: UInt): Int {
-    return kniBridge82(handle)
-}
-
-fun serWriteByte(handle: UInt, bVal: UInt): Int {
-    return kniBridge83(handle, bVal)
-}
-
-fun serReadByte(handle: UInt): Int {
-    return kniBridge84(handle)
-}
-
-fun serWrite(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge85(handle, buf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun serRead(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge86(handle, buf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun serDataAvailable(handle: UInt): Int {
-    return kniBridge87(handle)
-}
-
-fun gpioTrigger(user_gpio: UInt, pulseLen: UInt, level: UInt): Int {
-    return kniBridge88(user_gpio, pulseLen, level)
-}
-
-fun gpioSetWatchdog(user_gpio: UInt, timeout: UInt): Int {
-    return kniBridge89(user_gpio, timeout)
-}
-
-fun gpioNoiseFilter(user_gpio: UInt, steady: UInt, active: UInt): Int {
-    return kniBridge90(user_gpio, steady, active)
-}
-
-fun gpioGlitchFilter(user_gpio: UInt, steady: UInt): Int {
-    return kniBridge91(user_gpio, steady)
-}
-
-fun gpioSetGetSamplesFunc(f: gpioGetSamplesFunc_t?, bits: uint32_t): Int {
-    return kniBridge92(f.rawValue, bits)
-}
-
-fun gpioSetGetSamplesFuncEx(f: gpioGetSamplesFuncEx_t?, bits: uint32_t, userdata: CValuesRef<*>?): Int {
-    memScoped {
-        return kniBridge93(f.rawValue, bits, userdata?.getPointer(memScope).rawValue)
-    }
-}
-
-fun gpioSetTimerFunc(timer: UInt, millis: UInt, f: gpioTimerFunc_t?): Int {
-    return kniBridge94(timer, millis, f.rawValue)
-}
-
-fun gpioSetTimerFuncEx(timer: UInt, millis: UInt, f: gpioTimerFuncEx_t?, userdata: CValuesRef<*>?): Int {
-    memScoped {
-        return kniBridge95(timer, millis, f.rawValue, userdata?.getPointer(memScope).rawValue)
-    }
-}
-
-
-fun gpioStopThread(pth: CValuesRef<pthread_tVar>?): Unit {
-    memScoped {
-        return kniBridge96(pth?.getPointer(memScope).rawValue)
-    }
-}
-
-fun gpioStoreScript(script: CValuesRef<ByteVar>?): Int {
-    memScoped {
-        return kniBridge97(script?.getPointer(memScope).rawValue)
-    }
-}
-
-fun gpioRunScript(script_id: UInt, numPar: UInt, param: CValuesRef<uint32_tVar>?): Int {
-    memScoped {
-        return kniBridge98(script_id, numPar, param?.getPointer(memScope).rawValue)
-    }
-}
-
-fun gpioUpdateScript(script_id: UInt, numPar: UInt, param: CValuesRef<uint32_tVar>?): Int {
-    memScoped {
-        return kniBridge99(script_id, numPar, param?.getPointer(memScope).rawValue)
-    }
-}
-
-fun gpioScriptStatus(script_id: UInt, param: CValuesRef<uint32_tVar>?): Int {
-    memScoped {
-        return kniBridge100(script_id, param?.getPointer(memScope).rawValue)
-    }
-}
-
-fun gpioStopScript(script_id: UInt): Int {
-    return kniBridge101(script_id)
-}
-
-fun gpioDeleteScript(script_id: UInt): Int {
-    return kniBridge102(script_id)
-}
-
-fun gpioSetSignalFunc(signum: UInt, f: gpioSignalFunc_t?): Int {
-    return kniBridge103(signum, f.rawValue)
-}
-
-fun gpioSetSignalFuncEx(signum: UInt, f: gpioSignalFuncEx_t?, userdata: CValuesRef<*>?): Int {
-    memScoped {
-        return kniBridge104(signum, f.rawValue, userdata?.getPointer(memScope).rawValue)
-    }
-}
-
-fun gpioRead_Bits_0_31(): uint32_t {
-    return kniBridge105()
-}
-
-fun gpioRead_Bits_32_53(): uint32_t {
-    return kniBridge106()
-}
-
-fun gpioWrite_Bits_0_31_Clear(bits: uint32_t): Int {
-    return kniBridge107(bits)
-}
-
-fun gpioWrite_Bits_32_53_Clear(bits: uint32_t): Int {
-    return kniBridge108(bits)
-}
-
-fun gpioWrite_Bits_0_31_Set(bits: uint32_t): Int {
-    return kniBridge109(bits)
-}
-
-fun gpioWrite_Bits_32_53_Set(bits: uint32_t): Int {
-    return kniBridge110(bits)
-}
-
-fun gpioHardwareClock(gpio: UInt, clkfreq: UInt): Int {
-    return kniBridge111(gpio, clkfreq)
-}
-
-fun gpioHardwarePWM(gpio: UInt, PWMfreq: UInt, PWMduty: UInt): Int {
-    return kniBridge112(gpio, PWMfreq, PWMduty)
-}
-
-fun gpioTime(timetype: UInt, seconds: CValuesRef<IntVar>?, micros: CValuesRef<IntVar>?): Int {
-    memScoped {
-        return kniBridge113(timetype, seconds?.getPointer(memScope).rawValue, micros?.getPointer(memScope).rawValue)
-    }
-}
-
-fun gpioSleep(timetype: UInt, seconds: Int, micros: Int): Int {
-    return kniBridge114(timetype, seconds, micros)
-}
-
-fun gpioDelay(micros: uint32_t): uint32_t {
-    return kniBridge115(micros)
-}
-
-fun gpioTick(): uint32_t {
-    return kniBridge116()
-}
-
-fun gpioHardwareRevision(): UInt {
-    return kniBridge117()
-}
-
-fun gpioVersion(): UInt {
-    return kniBridge118()
-}
-
-fun gpioGetPad(pad: UInt): Int {
-    return kniBridge119(pad)
-}
-
-fun gpioSetPad(pad: UInt, padStrength: UInt): Int {
-    return kniBridge120(pad, padStrength)
-}
-
-fun eventMonitor(handle: UInt, bits: uint32_t): Int {
-    return kniBridge121(handle, bits)
-}
-
-fun eventSetFunc(event: UInt, f: eventFunc_t?): Int {
-    return kniBridge122(event, f.rawValue)
-}
-
-fun eventSetFuncEx(event: UInt, f: eventFuncEx_t?, userdata: CValuesRef<*>?): Int {
-    memScoped {
-        return kniBridge123(event, f.rawValue, userdata?.getPointer(memScope).rawValue)
-    }
-}
-
-fun eventTrigger(event: UInt): Int {
-    return kniBridge124(event)
-}
-
-fun shell(scriptName: CValuesRef<ByteVar>?, scriptString: CValuesRef<ByteVar>?): Int {
-    memScoped {
-        return kniBridge125(scriptName?.getPointer(memScope).rawValue, scriptString?.getPointer(memScope).rawValue)
-    }
-}
-
-fun fileOpen(file: CValuesRef<ByteVar>?, mode: UInt): Int {
-    memScoped {
-        return kniBridge126(file?.getPointer(memScope).rawValue, mode)
-    }
-}
-
-fun fileClose(handle: UInt): Int {
-    return kniBridge127(handle)
-}
-
-fun fileWrite(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge128(handle, buf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun fileRead(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge129(handle, buf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun fileSeek(handle: UInt, seekOffset: int32_t, seekFrom: Int): Int {
-    return kniBridge130(handle, seekOffset, seekFrom)
-}
-
-fun fileList(fpat: CValuesRef<ByteVar>?, buf: CValuesRef<ByteVar>?, count: UInt): Int {
-    memScoped {
-        return kniBridge131(fpat?.getPointer(memScope).rawValue, buf?.getPointer(memScope).rawValue, count)
-    }
-}
-
-fun gpioCfgBufferSize(cfgMillis: UInt): Int {
-    return kniBridge132(cfgMillis)
-}
-
-fun gpioCfgClock(cfgMicros: UInt, cfgPeripheral: UInt, cfgSource: UInt): Int {
-    return kniBridge133(cfgMicros, cfgPeripheral, cfgSource)
-}
-
-fun gpioCfgDMAchannel(DMAchannel: UInt): Int {
-    return kniBridge134(DMAchannel)
-}
-
-fun gpioCfgDMAchannels(primaryChannel: UInt, secondaryChannel: UInt): Int {
-    return kniBridge135(primaryChannel, secondaryChannel)
-}
-
-fun gpioCfgPermissions(updateMask: uint64_t): Int {
-    return kniBridge136(updateMask)
-}
-
-fun gpioCfgSocketPort(port: UInt): Int {
-    return kniBridge137(port)
-}
-
-fun gpioCfgInterfaces(ifFlags: UInt): Int {
-    return kniBridge138(ifFlags)
-}
-
-fun gpioCfgMemAlloc(memAllocMode: UInt): Int {
-    return kniBridge139(memAllocMode)
-}
-
-fun gpioCfgNetAddr(numSockAddr: Int, sockAddr: CValuesRef<uint32_tVar>?): Int {
-    memScoped {
-        return kniBridge140(numSockAddr, sockAddr?.getPointer(memScope).rawValue)
-    }
-}
-
-fun gpioCfgInternals(cfgWhat: UInt, cfgVal: UInt): Int {
-    return kniBridge141(cfgWhat, cfgVal)
-}
-
-fun gpioCfgGetInternals(): uint32_t {
-    return kniBridge142()
-}
-
-fun gpioCfgSetInternals(cfgVal: uint32_t): Int {
-    return kniBridge143(cfgVal)
-}
-
-fun gpioCustom1(arg1: UInt, arg2: UInt, argx: CValuesRef<ByteVar>?, argc: UInt): Int {
-    memScoped {
-        return kniBridge144(arg1, arg2, argx?.getPointer(memScope).rawValue, argc)
-    }
-}
-
-fun gpioCustom2(arg1: UInt, argx: CValuesRef<ByteVar>?, argc: UInt, retBuf: CValuesRef<ByteVar>?, retMax: UInt): Int {
-    memScoped {
-        return kniBridge145(arg1, argx?.getPointer(memScope).rawValue, argc, retBuf?.getPointer(memScope).rawValue, retMax)
-    }
-}
-
-fun rawWaveAddSPI(spi: CValuesRef<rawSPI_t>?, offset: UInt, spiSS: UInt, buf: CValuesRef<ByteVar>?, spiTxBits: UInt, spiBitFirst: UInt, spiBitLast: UInt, spiBits: UInt): Int {
-    memScoped {
-        return kniBridge146(spi?.getPointer(memScope).rawValue, offset, spiSS, buf?.getPointer(memScope).rawValue, spiTxBits, spiBitFirst, spiBitLast, spiBits)
-    }
-}
-
-fun rawWaveAddGeneric(numPulses: UInt, pulses: CValuesRef<rawWave_t>?): Int {
-    memScoped {
-        return kniBridge147(numPulses, pulses?.getPointer(memScope).rawValue)
-    }
-}
-
-fun rawWaveCB(): UInt {
-    return kniBridge148()
-}
-
-fun rawWaveCBAdr(cbNum: Int): CPointer<rawCbs_t>? {
-    return interpretCPointer<rawCbs_t>(kniBridge149(cbNum))
-}
-
-fun rawWaveGetOOL(pos: Int): uint32_t {
-    return kniBridge150(pos)
-}
-
-fun rawWaveSetOOL(pos: Int, lVal: uint32_t): Unit {
-    return kniBridge151(pos, lVal)
-}
-
-fun rawWaveGetOut(pos: Int): uint32_t {
-    return kniBridge152(pos)
-}
-
-fun rawWaveSetOut(pos: Int, lVal: uint32_t): Unit {
-    return kniBridge153(pos, lVal)
-}
-
-fun rawWaveGetIn(pos: Int): uint32_t {
-    return kniBridge154(pos)
-}
-
-fun rawWaveSetIn(pos: Int, lVal: uint32_t): Unit {
-    return kniBridge155(pos, lVal)
-}
-
-fun rawWaveInfo(wave_id: Int): CValue<rawWaveInfo_t> {
-    val kniRetVal = nativeHeap.alloc<rawWaveInfo_t>()
-    try {
-        kniBridge156(wave_id, kniRetVal.rawPtr)
-        return kniRetVal.readValue()
-    } finally { nativeHeap.free(kniRetVal) }
-}
-
-fun getBitInBytes(bitPos: Int, buf: CValuesRef<ByteVar>?, numBits: Int): Int {
-    memScoped {
-        return kniBridge157(bitPos, buf?.getPointer(memScope).rawValue, numBits)
-    }
-}
-
-fun putBitInBytes(bitPos: Int, buf: CValuesRef<ByteVar>?, bit: Int): Unit {
-    memScoped {
-        return kniBridge158(bitPos, buf?.getPointer(memScope).rawValue, bit)
-    }
-}
-
-fun time_time(): Double {
-    return kniBridge159()
-}
-
-fun time_sleep(seconds: Double): Unit {
-    return kniBridge160(seconds)
-}
-
-fun rawDumpWave(): Unit {
-    return kniBridge161()
-}
-
-fun rawDumpScript(script_id: UInt): Unit {
-    return kniBridge162(script_id)
-}
+@CCall("knifunptr_pigpio0_gpioInitialise")
+external fun gpioInitialise(): Int
+
+@CCall("knifunptr_pigpio1_gpioTerminate")
+external fun gpioTerminate(): Unit
+
+@CCall("knifunptr_pigpio2_gpioSetMode")
+external fun gpioSetMode(gpio: UInt, mode: UInt): Int
+
+@CCall("knifunptr_pigpio3_gpioGetMode")
+external fun gpioGetMode(gpio: UInt): Int
+
+@CCall("knifunptr_pigpio4_gpioSetPullUpDown")
+external fun gpioSetPullUpDown(gpio: UInt, pud: UInt): Int
+
+@CCall("knifunptr_pigpio5_gpioRead")
+external fun gpioRead(gpio: UInt): Int
+
+@CCall("knifunptr_pigpio6_gpioWrite")
+external fun gpioWrite(gpio: UInt, level: UInt): Int
+
+@CCall("knifunptr_pigpio7_gpioPWM")
+external fun gpioPWM(user_gpio: UInt, dutycycle: UInt): Int
+
+@CCall("knifunptr_pigpio8_gpioGetPWMdutycycle")
+external fun gpioGetPWMdutycycle(user_gpio: UInt): Int
+
+@CCall("knifunptr_pigpio9_gpioSetPWMrange")
+external fun gpioSetPWMrange(user_gpio: UInt, range: UInt): Int
+
+@CCall("knifunptr_pigpio10_gpioGetPWMrange")
+external fun gpioGetPWMrange(user_gpio: UInt): Int
+
+@CCall("knifunptr_pigpio11_gpioGetPWMrealRange")
+external fun gpioGetPWMrealRange(user_gpio: UInt): Int
+
+@CCall("knifunptr_pigpio12_gpioSetPWMfrequency")
+external fun gpioSetPWMfrequency(user_gpio: UInt, frequency: UInt): Int
+
+@CCall("knifunptr_pigpio13_gpioGetPWMfrequency")
+external fun gpioGetPWMfrequency(user_gpio: UInt): Int
+
+@CCall("knifunptr_pigpio14_gpioServo")
+external fun gpioServo(user_gpio: UInt, pulsewidth: UInt): Int
+
+@CCall("knifunptr_pigpio15_gpioGetServoPulsewidth")
+external fun gpioGetServoPulsewidth(user_gpio: UInt): Int
+
+@CCall("knifunptr_pigpio16_gpioSetAlertFunc")
+external fun gpioSetAlertFunc(user_gpio: UInt, f: gpioAlertFunc_t?): Int
+
+@CCall("knifunptr_pigpio17_gpioSetAlertFuncEx")
+external fun gpioSetAlertFuncEx(user_gpio: UInt, f: gpioAlertFuncEx_t?, userdata: CValuesRef<*>?): Int
+
+@CCall("knifunptr_pigpio18_gpioSetISRFunc")
+external fun gpioSetISRFunc(gpio: UInt, edge: UInt, timeout: Int, f: gpioISRFunc_t?): Int
+
+@CCall("knifunptr_pigpio19_gpioSetISRFuncEx")
+external fun gpioSetISRFuncEx(gpio: UInt, edge: UInt, timeout: Int, f: gpioISRFuncEx_t?, userdata: CValuesRef<*>?): Int
+
+@CCall("knifunptr_pigpio20_gpioNotifyOpen")
+external fun gpioNotifyOpen(): Int
+
+@CCall("knifunptr_pigpio21_gpioNotifyOpenWithSize")
+external fun gpioNotifyOpenWithSize(bufSize: Int): Int
+
+@CCall("knifunptr_pigpio22_gpioNotifyBegin")
+external fun gpioNotifyBegin(handle: UInt, bits: uint32_t): Int
+
+@CCall("knifunptr_pigpio23_gpioNotifyPause")
+external fun gpioNotifyPause(handle: UInt): Int
+
+@CCall("knifunptr_pigpio24_gpioNotifyClose")
+external fun gpioNotifyClose(handle: UInt): Int
+
+@CCall("knifunptr_pigpio25_gpioWaveClear")
+external fun gpioWaveClear(): Int
+
+@CCall("knifunptr_pigpio26_gpioWaveAddNew")
+external fun gpioWaveAddNew(): Int
+
+@CCall("knifunptr_pigpio27_gpioWaveAddGeneric")
+external fun gpioWaveAddGeneric(numPulses: UInt, pulses: CValuesRef<gpioPulse_t>?): Int
+
+@CCall("knifunptr_pigpio28_gpioWaveAddSerial")
+external fun gpioWaveAddSerial(user_gpio: UInt, baud: UInt, data_bits: UInt, stop_bits: UInt, offset: UInt, numBytes: UInt, str: CValuesRef<ByteVar>?): Int
+
+@CCall("knifunptr_pigpio29_gpioWaveCreate")
+external fun gpioWaveCreate(): Int
+
+@CCall("knifunptr_pigpio30_gpioWaveDelete")
+external fun gpioWaveDelete(wave_id: UInt): Int
+
+@CCall("knifunptr_pigpio31_gpioWaveTxSend")
+external fun gpioWaveTxSend(wave_id: UInt, wave_mode: UInt): Int
+
+@CCall("knifunptr_pigpio32_gpioWaveChain")
+external fun gpioWaveChain(buf: CValuesRef<ByteVar>?, bufSize: UInt): Int
+
+@CCall("knifunptr_pigpio33_gpioWaveTxAt")
+external fun gpioWaveTxAt(): Int
+
+@CCall("knifunptr_pigpio34_gpioWaveTxBusy")
+external fun gpioWaveTxBusy(): Int
+
+@CCall("knifunptr_pigpio35_gpioWaveTxStop")
+external fun gpioWaveTxStop(): Int
+
+@CCall("knifunptr_pigpio36_gpioWaveGetMicros")
+external fun gpioWaveGetMicros(): Int
+
+@CCall("knifunptr_pigpio37_gpioWaveGetHighMicros")
+external fun gpioWaveGetHighMicros(): Int
+
+@CCall("knifunptr_pigpio38_gpioWaveGetMaxMicros")
+external fun gpioWaveGetMaxMicros(): Int
+
+@CCall("knifunptr_pigpio39_gpioWaveGetPulses")
+external fun gpioWaveGetPulses(): Int
+
+@CCall("knifunptr_pigpio40_gpioWaveGetHighPulses")
+external fun gpioWaveGetHighPulses(): Int
+
+@CCall("knifunptr_pigpio41_gpioWaveGetMaxPulses")
+external fun gpioWaveGetMaxPulses(): Int
+
+@CCall("knifunptr_pigpio42_gpioWaveGetCbs")
+external fun gpioWaveGetCbs(): Int
+
+@CCall("knifunptr_pigpio43_gpioWaveGetHighCbs")
+external fun gpioWaveGetHighCbs(): Int
+
+@CCall("knifunptr_pigpio44_gpioWaveGetMaxCbs")
+external fun gpioWaveGetMaxCbs(): Int
+
+@CCall("knifunptr_pigpio45_gpioSerialReadOpen")
+external fun gpioSerialReadOpen(user_gpio: UInt, baud: UInt, data_bits: UInt): Int
+
+@CCall("knifunptr_pigpio46_gpioSerialReadInvert")
+external fun gpioSerialReadInvert(user_gpio: UInt, invert: UInt): Int
+
+@CCall("knifunptr_pigpio47_gpioSerialRead")
+external fun gpioSerialRead(user_gpio: UInt, buf: CValuesRef<*>?, bufSize: size_t): Int
+
+@CCall("knifunptr_pigpio48_gpioSerialReadClose")
+external fun gpioSerialReadClose(user_gpio: UInt): Int
+
+@CCall("knifunptr_pigpio49_i2cOpen")
+external fun i2cOpen(i2cBus: UInt, i2cAddr: UInt, i2cFlags: UInt): Int
+
+@CCall("knifunptr_pigpio50_i2cClose")
+external fun i2cClose(handle: UInt): Int
+
+@CCall("knifunptr_pigpio51_i2cWriteQuick")
+external fun i2cWriteQuick(handle: UInt, bit: UInt): Int
+
+@CCall("knifunptr_pigpio52_i2cWriteByte")
+external fun i2cWriteByte(handle: UInt, bVal: UInt): Int
+
+@CCall("knifunptr_pigpio53_i2cReadByte")
+external fun i2cReadByte(handle: UInt): Int
+
+@CCall("knifunptr_pigpio54_i2cWriteByteData")
+external fun i2cWriteByteData(handle: UInt, i2cReg: UInt, bVal: UInt): Int
+
+@CCall("knifunptr_pigpio55_i2cWriteWordData")
+external fun i2cWriteWordData(handle: UInt, i2cReg: UInt, wVal: UInt): Int
+
+@CCall("knifunptr_pigpio56_i2cReadByteData")
+external fun i2cReadByteData(handle: UInt, i2cReg: UInt): Int
+
+@CCall("knifunptr_pigpio57_i2cReadWordData")
+external fun i2cReadWordData(handle: UInt, i2cReg: UInt): Int
+
+@CCall("knifunptr_pigpio58_i2cProcessCall")
+external fun i2cProcessCall(handle: UInt, i2cReg: UInt, wVal: UInt): Int
+
+@CCall("knifunptr_pigpio59_i2cWriteBlockData")
+external fun i2cWriteBlockData(handle: UInt, i2cReg: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio60_i2cReadBlockData")
+external fun i2cReadBlockData(handle: UInt, i2cReg: UInt, buf: CValuesRef<ByteVar>?): Int
+
+@CCall("knifunptr_pigpio61_i2cBlockProcessCall")
+external fun i2cBlockProcessCall(handle: UInt, i2cReg: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio62_i2cReadI2CBlockData")
+external fun i2cReadI2CBlockData(handle: UInt, i2cReg: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio63_i2cWriteI2CBlockData")
+external fun i2cWriteI2CBlockData(handle: UInt, i2cReg: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio64_i2cReadDevice")
+external fun i2cReadDevice(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio65_i2cWriteDevice")
+external fun i2cWriteDevice(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio66_i2cSwitchCombined")
+external fun i2cSwitchCombined(setting: Int): Unit
+
+@CCall("knifunptr_pigpio67_i2cSegments")
+external fun i2cSegments(handle: UInt, segs: CValuesRef<pi_i2c_msg_t>?, numSegs: UInt): Int
+
+@CCall("knifunptr_pigpio68_i2cZip")
+external fun i2cZip(handle: UInt, inBuf: CValuesRef<ByteVar>?, inLen: UInt, outBuf: CValuesRef<ByteVar>?, outLen: UInt): Int
+
+@CCall("knifunptr_pigpio69_bbI2COpen")
+external fun bbI2COpen(SDA: UInt, SCL: UInt, baud: UInt): Int
+
+@CCall("knifunptr_pigpio70_bbI2CClose")
+external fun bbI2CClose(SDA: UInt): Int
+
+@CCall("knifunptr_pigpio71_bbI2CZip")
+external fun bbI2CZip(SDA: UInt, inBuf: CValuesRef<ByteVar>?, inLen: UInt, outBuf: CValuesRef<ByteVar>?, outLen: UInt): Int
+
+@CCall("knifunptr_pigpio72_bscXfer")
+external fun bscXfer(bsc_xfer: CValuesRef<bsc_xfer_t>?): Int
+
+@CCall("knifunptr_pigpio73_bbSPIOpen")
+external fun bbSPIOpen(CS: UInt, MISO: UInt, MOSI: UInt, SCLK: UInt, baud: UInt, spiFlags: UInt): Int
+
+@CCall("knifunptr_pigpio74_bbSPIClose")
+external fun bbSPIClose(CS: UInt): Int
+
+@CCall("knifunptr_pigpio75_bbSPIXfer")
+external fun bbSPIXfer(CS: UInt, inBuf: CValuesRef<ByteVar>?, outBuf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio76_spiOpen")
+external fun spiOpen(spiChan: UInt, baud: UInt, spiFlags: UInt): Int
+
+@CCall("knifunptr_pigpio77_spiClose")
+external fun spiClose(handle: UInt): Int
+
+@CCall("knifunptr_pigpio78_spiRead")
+external fun spiRead(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio79_spiWrite")
+external fun spiWrite(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio80_spiXfer")
+external fun spiXfer(handle: UInt, txBuf: CValuesRef<ByteVar>?, rxBuf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio81_serOpen")
+external fun serOpen(sertty: CValuesRef<ByteVar>?, baud: UInt, serFlags: UInt): Int
+
+@CCall("knifunptr_pigpio82_serClose")
+external fun serClose(handle: UInt): Int
+
+@CCall("knifunptr_pigpio83_serWriteByte")
+external fun serWriteByte(handle: UInt, bVal: UInt): Int
+
+@CCall("knifunptr_pigpio84_serReadByte")
+external fun serReadByte(handle: UInt): Int
+
+@CCall("knifunptr_pigpio85_serWrite")
+external fun serWrite(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio86_serRead")
+external fun serRead(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio87_serDataAvailable")
+external fun serDataAvailable(handle: UInt): Int
+
+@CCall("knifunptr_pigpio88_gpioTrigger")
+external fun gpioTrigger(user_gpio: UInt, pulseLen: UInt, level: UInt): Int
+
+@CCall("knifunptr_pigpio89_gpioSetWatchdog")
+external fun gpioSetWatchdog(user_gpio: UInt, timeout: UInt): Int
+
+@CCall("knifunptr_pigpio90_gpioNoiseFilter")
+external fun gpioNoiseFilter(user_gpio: UInt, steady: UInt, active: UInt): Int
+
+@CCall("knifunptr_pigpio91_gpioGlitchFilter")
+external fun gpioGlitchFilter(user_gpio: UInt, steady: UInt): Int
+
+@CCall("knifunptr_pigpio92_gpioSetGetSamplesFunc")
+external fun gpioSetGetSamplesFunc(f: gpioGetSamplesFunc_t?, bits: uint32_t): Int
+
+@CCall("knifunptr_pigpio93_gpioSetGetSamplesFuncEx")
+external fun gpioSetGetSamplesFuncEx(f: gpioGetSamplesFuncEx_t?, bits: uint32_t, userdata: CValuesRef<*>?): Int
+
+@CCall("knifunptr_pigpio94_gpioSetTimerFunc")
+external fun gpioSetTimerFunc(timer: UInt, millis: UInt, f: gpioTimerFunc_t?): Int
+
+@CCall("knifunptr_pigpio95_gpioSetTimerFuncEx")
+external fun gpioSetTimerFuncEx(timer: UInt, millis: UInt, f: gpioTimerFuncEx_t?, userdata: CValuesRef<*>?): Int
+
+
+@CCall("knifunptr_pigpio97_gpioStopThread")
+external fun gpioStopThread(pth: CValuesRef<pthread_tVar>?): Unit
+
+@CCall("knifunptr_pigpio98_gpioStoreScript")
+external fun gpioStoreScript(script: CValuesRef<ByteVar>?): Int
+
+@CCall("knifunptr_pigpio99_gpioRunScript")
+external fun gpioRunScript(script_id: UInt, numPar: UInt, param: CValuesRef<uint32_tVar>?): Int
+
+@CCall("knifunptr_pigpio100_gpioUpdateScript")
+external fun gpioUpdateScript(script_id: UInt, numPar: UInt, param: CValuesRef<uint32_tVar>?): Int
+
+@CCall("knifunptr_pigpio101_gpioScriptStatus")
+external fun gpioScriptStatus(script_id: UInt, param: CValuesRef<uint32_tVar>?): Int
+
+@CCall("knifunptr_pigpio102_gpioStopScript")
+external fun gpioStopScript(script_id: UInt): Int
+
+@CCall("knifunptr_pigpio103_gpioDeleteScript")
+external fun gpioDeleteScript(script_id: UInt): Int
+
+@CCall("knifunptr_pigpio104_gpioSetSignalFunc")
+external fun gpioSetSignalFunc(signum: UInt, f: gpioSignalFunc_t?): Int
+
+@CCall("knifunptr_pigpio105_gpioSetSignalFuncEx")
+external fun gpioSetSignalFuncEx(signum: UInt, f: gpioSignalFuncEx_t?, userdata: CValuesRef<*>?): Int
+
+@CCall("knifunptr_pigpio106_gpioRead_Bits_0_31")
+external fun gpioRead_Bits_0_31(): uint32_t
+
+@CCall("knifunptr_pigpio107_gpioRead_Bits_32_53")
+external fun gpioRead_Bits_32_53(): uint32_t
+
+@CCall("knifunptr_pigpio108_gpioWrite_Bits_0_31_Clear")
+external fun gpioWrite_Bits_0_31_Clear(bits: uint32_t): Int
+
+@CCall("knifunptr_pigpio109_gpioWrite_Bits_32_53_Clear")
+external fun gpioWrite_Bits_32_53_Clear(bits: uint32_t): Int
+
+@CCall("knifunptr_pigpio110_gpioWrite_Bits_0_31_Set")
+external fun gpioWrite_Bits_0_31_Set(bits: uint32_t): Int
+
+@CCall("knifunptr_pigpio111_gpioWrite_Bits_32_53_Set")
+external fun gpioWrite_Bits_32_53_Set(bits: uint32_t): Int
+
+@CCall("knifunptr_pigpio112_gpioHardwareClock")
+external fun gpioHardwareClock(gpio: UInt, clkfreq: UInt): Int
+
+@CCall("knifunptr_pigpio113_gpioHardwarePWM")
+external fun gpioHardwarePWM(gpio: UInt, PWMfreq: UInt, PWMduty: UInt): Int
+
+@CCall("knifunptr_pigpio114_gpioTime")
+external fun gpioTime(timetype: UInt, seconds: CValuesRef<IntVar>?, micros: CValuesRef<IntVar>?): Int
+
+@CCall("knifunptr_pigpio115_gpioSleep")
+external fun gpioSleep(timetype: UInt, seconds: Int, micros: Int): Int
+
+@CCall("knifunptr_pigpio116_gpioDelay")
+external fun gpioDelay(micros: uint32_t): uint32_t
+
+@CCall("knifunptr_pigpio117_gpioTick")
+external fun gpioTick(): uint32_t
+
+@CCall("knifunptr_pigpio118_gpioHardwareRevision")
+external fun gpioHardwareRevision(): UInt
+
+@CCall("knifunptr_pigpio119_gpioVersion")
+external fun gpioVersion(): UInt
+
+@CCall("knifunptr_pigpio120_gpioGetPad")
+external fun gpioGetPad(pad: UInt): Int
+
+@CCall("knifunptr_pigpio121_gpioSetPad")
+external fun gpioSetPad(pad: UInt, padStrength: UInt): Int
+
+@CCall("knifunptr_pigpio122_eventMonitor")
+external fun eventMonitor(handle: UInt, bits: uint32_t): Int
+
+@CCall("knifunptr_pigpio123_eventSetFunc")
+external fun eventSetFunc(event: UInt, f: eventFunc_t?): Int
+
+@CCall("knifunptr_pigpio124_eventSetFuncEx")
+external fun eventSetFuncEx(event: UInt, f: eventFuncEx_t?, userdata: CValuesRef<*>?): Int
+
+@CCall("knifunptr_pigpio125_eventTrigger")
+external fun eventTrigger(event: UInt): Int
+
+@CCall("knifunptr_pigpio126_shell")
+external fun shell(scriptName: CValuesRef<ByteVar>?, scriptString: CValuesRef<ByteVar>?): Int
+
+@CCall("knifunptr_pigpio127_fileOpen")
+external fun fileOpen(file: CValuesRef<ByteVar>?, mode: UInt): Int
+
+@CCall("knifunptr_pigpio128_fileClose")
+external fun fileClose(handle: UInt): Int
+
+@CCall("knifunptr_pigpio129_fileWrite")
+external fun fileWrite(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio130_fileRead")
+external fun fileRead(handle: UInt, buf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio131_fileSeek")
+external fun fileSeek(handle: UInt, seekOffset: int32_t, seekFrom: Int): Int
+
+@CCall("knifunptr_pigpio132_fileList")
+external fun fileList(fpat: CValuesRef<ByteVar>?, buf: CValuesRef<ByteVar>?, count: UInt): Int
+
+@CCall("knifunptr_pigpio133_gpioCfgBufferSize")
+external fun gpioCfgBufferSize(cfgMillis: UInt): Int
+
+@CCall("knifunptr_pigpio134_gpioCfgClock")
+external fun gpioCfgClock(cfgMicros: UInt, cfgPeripheral: UInt, cfgSource: UInt): Int
+
+@CCall("knifunptr_pigpio135_gpioCfgDMAchannel")
+external fun gpioCfgDMAchannel(DMAchannel: UInt): Int
+
+@CCall("knifunptr_pigpio136_gpioCfgDMAchannels")
+external fun gpioCfgDMAchannels(primaryChannel: UInt, secondaryChannel: UInt): Int
+
+@CCall("knifunptr_pigpio137_gpioCfgPermissions")
+external fun gpioCfgPermissions(updateMask: uint64_t): Int
+
+@CCall("knifunptr_pigpio138_gpioCfgSocketPort")
+external fun gpioCfgSocketPort(port: UInt): Int
+
+@CCall("knifunptr_pigpio139_gpioCfgInterfaces")
+external fun gpioCfgInterfaces(ifFlags: UInt): Int
+
+@CCall("knifunptr_pigpio140_gpioCfgMemAlloc")
+external fun gpioCfgMemAlloc(memAllocMode: UInt): Int
+
+@CCall("knifunptr_pigpio141_gpioCfgNetAddr")
+external fun gpioCfgNetAddr(numSockAddr: Int, sockAddr: CValuesRef<uint32_tVar>?): Int
+
+@CCall("knifunptr_pigpio142_gpioCfgInternals")
+external fun gpioCfgInternals(cfgWhat: UInt, cfgVal: UInt): Int
+
+@CCall("knifunptr_pigpio143_gpioCfgGetInternals")
+external fun gpioCfgGetInternals(): uint32_t
+
+@CCall("knifunptr_pigpio144_gpioCfgSetInternals")
+external fun gpioCfgSetInternals(cfgVal: uint32_t): Int
+
+@CCall("knifunptr_pigpio145_gpioCustom1")
+external fun gpioCustom1(arg1: UInt, arg2: UInt, argx: CValuesRef<ByteVar>?, argc: UInt): Int
+
+@CCall("knifunptr_pigpio146_gpioCustom2")
+external fun gpioCustom2(arg1: UInt, argx: CValuesRef<ByteVar>?, argc: UInt, retBuf: CValuesRef<ByteVar>?, retMax: UInt): Int
+
+@CCall("knifunptr_pigpio147_rawWaveAddSPI")
+external fun rawWaveAddSPI(spi: CValuesRef<rawSPI_t>?, offset: UInt, spiSS: UInt, buf: CValuesRef<ByteVar>?, spiTxBits: UInt, spiBitFirst: UInt, spiBitLast: UInt, spiBits: UInt): Int
+
+@CCall("knifunptr_pigpio148_rawWaveAddGeneric")
+external fun rawWaveAddGeneric(numPulses: UInt, pulses: CValuesRef<rawWave_t>?): Int
+
+@CCall("knifunptr_pigpio149_rawWaveCB")
+external fun rawWaveCB(): UInt
+
+@CCall("knifunptr_pigpio150_rawWaveCBAdr")
+external fun rawWaveCBAdr(cbNum: Int): CPointer<rawCbs_t>?
+
+@CCall("knifunptr_pigpio151_rawWaveGetOOL")
+external fun rawWaveGetOOL(pos: Int): uint32_t
+
+@CCall("knifunptr_pigpio152_rawWaveSetOOL")
+external fun rawWaveSetOOL(pos: Int, lVal: uint32_t): Unit
+
+@CCall("knifunptr_pigpio153_rawWaveGetOut")
+external fun rawWaveGetOut(pos: Int): uint32_t
+
+@CCall("knifunptr_pigpio154_rawWaveSetOut")
+external fun rawWaveSetOut(pos: Int, lVal: uint32_t): Unit
+
+@CCall("knifunptr_pigpio155_rawWaveGetIn")
+external fun rawWaveGetIn(pos: Int): uint32_t
+
+@CCall("knifunptr_pigpio156_rawWaveSetIn")
+external fun rawWaveSetIn(pos: Int, lVal: uint32_t): Unit
+
+@CCall("knifunptr_pigpio157_rawWaveInfo")
+external fun rawWaveInfo(wave_id: Int): CValue<rawWaveInfo_t>
+
+@CCall("knifunptr_pigpio158_getBitInBytes")
+external fun getBitInBytes(bitPos: Int, buf: CValuesRef<ByteVar>?, numBits: Int): Int
+
+@CCall("knifunptr_pigpio159_putBitInBytes")
+external fun putBitInBytes(bitPos: Int, buf: CValuesRef<ByteVar>?, bit: Int): Unit
+
+@CCall("knifunptr_pigpio160_time_time")
+external fun time_time(): Double
+
+@CCall("knifunptr_pigpio161_time_sleep")
+external fun time_sleep(seconds: Double): Unit
+
+@CCall("knifunptr_pigpio162_rawDumpWave")
+external fun rawDumpWave(): Unit
+
+@CCall("knifunptr_pigpio163_rawDumpScript")
+external fun rawDumpScript(script_id: UInt): Unit
 
 const val PIGPIO_VERSION: Int = 68
 
@@ -2159,329 +1900,3 @@ typealias gpioGetSamplesFuncEx_tVar = CPointerVarOf<gpioGetSamplesFuncEx_t>
 typealias gpioGetSamplesFuncEx_t = CPointer<CFunction<(CPointer<gpioSample_t>?, Int, COpaquePointer?) -> Unit>>
 
 typealias gpioThreadFunc_t = CFunction<(COpaquePointer?) -> COpaquePointer?>
-@SymbolName("pigpio_kniBridge0")
-private external fun kniBridge0(): Int
-@SymbolName("pigpio_kniBridge1")
-private external fun kniBridge1(): Unit
-@SymbolName("pigpio_kniBridge2")
-private external fun kniBridge2(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge3")
-private external fun kniBridge3(p0: UInt): Int
-@SymbolName("pigpio_kniBridge4")
-private external fun kniBridge4(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge5")
-private external fun kniBridge5(p0: UInt): Int
-@SymbolName("pigpio_kniBridge6")
-private external fun kniBridge6(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge7")
-private external fun kniBridge7(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge8")
-private external fun kniBridge8(p0: UInt): Int
-@SymbolName("pigpio_kniBridge9")
-private external fun kniBridge9(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge10")
-private external fun kniBridge10(p0: UInt): Int
-@SymbolName("pigpio_kniBridge11")
-private external fun kniBridge11(p0: UInt): Int
-@SymbolName("pigpio_kniBridge12")
-private external fun kniBridge12(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge13")
-private external fun kniBridge13(p0: UInt): Int
-@SymbolName("pigpio_kniBridge14")
-private external fun kniBridge14(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge15")
-private external fun kniBridge15(p0: UInt): Int
-@SymbolName("pigpio_kniBridge16")
-private external fun kniBridge16(p0: UInt, p1: NativePtr): Int
-@SymbolName("pigpio_kniBridge17")
-private external fun kniBridge17(p0: UInt, p1: NativePtr, p2: NativePtr): Int
-@SymbolName("pigpio_kniBridge18")
-private external fun kniBridge18(p0: UInt, p1: UInt, p2: Int, p3: NativePtr): Int
-@SymbolName("pigpio_kniBridge19")
-private external fun kniBridge19(p0: UInt, p1: UInt, p2: Int, p3: NativePtr, p4: NativePtr): Int
-@SymbolName("pigpio_kniBridge20")
-private external fun kniBridge20(): Int
-@SymbolName("pigpio_kniBridge21")
-private external fun kniBridge21(p0: Int): Int
-@SymbolName("pigpio_kniBridge22")
-private external fun kniBridge22(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge23")
-private external fun kniBridge23(p0: UInt): Int
-@SymbolName("pigpio_kniBridge24")
-private external fun kniBridge24(p0: UInt): Int
-@SymbolName("pigpio_kniBridge25")
-private external fun kniBridge25(): Int
-@SymbolName("pigpio_kniBridge26")
-private external fun kniBridge26(): Int
-@SymbolName("pigpio_kniBridge27")
-private external fun kniBridge27(p0: UInt, p1: NativePtr): Int
-@SymbolName("pigpio_kniBridge28")
-private external fun kniBridge28(p0: UInt, p1: UInt, p2: UInt, p3: UInt, p4: UInt, p5: UInt, p6: NativePtr): Int
-@SymbolName("pigpio_kniBridge29")
-private external fun kniBridge29(): Int
-@SymbolName("pigpio_kniBridge30")
-private external fun kniBridge30(p0: UInt): Int
-@SymbolName("pigpio_kniBridge31")
-private external fun kniBridge31(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge32")
-private external fun kniBridge32(p0: NativePtr, p1: UInt): Int
-@SymbolName("pigpio_kniBridge33")
-private external fun kniBridge33(): Int
-@SymbolName("pigpio_kniBridge34")
-private external fun kniBridge34(): Int
-@SymbolName("pigpio_kniBridge35")
-private external fun kniBridge35(): Int
-@SymbolName("pigpio_kniBridge36")
-private external fun kniBridge36(): Int
-@SymbolName("pigpio_kniBridge37")
-private external fun kniBridge37(): Int
-@SymbolName("pigpio_kniBridge38")
-private external fun kniBridge38(): Int
-@SymbolName("pigpio_kniBridge39")
-private external fun kniBridge39(): Int
-@SymbolName("pigpio_kniBridge40")
-private external fun kniBridge40(): Int
-@SymbolName("pigpio_kniBridge41")
-private external fun kniBridge41(): Int
-@SymbolName("pigpio_kniBridge42")
-private external fun kniBridge42(): Int
-@SymbolName("pigpio_kniBridge43")
-private external fun kniBridge43(): Int
-@SymbolName("pigpio_kniBridge44")
-private external fun kniBridge44(): Int
-@SymbolName("pigpio_kniBridge45")
-private external fun kniBridge45(p0: UInt, p1: UInt, p2: UInt): Int
-@SymbolName("pigpio_kniBridge46")
-private external fun kniBridge46(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge47")
-private external fun kniBridge47(p0: UInt, p1: NativePtr, p2: UInt): Int
-@SymbolName("pigpio_kniBridge48")
-private external fun kniBridge48(p0: UInt): Int
-@SymbolName("pigpio_kniBridge49")
-private external fun kniBridge49(p0: UInt, p1: UInt, p2: UInt): Int
-@SymbolName("pigpio_kniBridge50")
-private external fun kniBridge50(p0: UInt): Int
-@SymbolName("pigpio_kniBridge51")
-private external fun kniBridge51(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge52")
-private external fun kniBridge52(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge53")
-private external fun kniBridge53(p0: UInt): Int
-@SymbolName("pigpio_kniBridge54")
-private external fun kniBridge54(p0: UInt, p1: UInt, p2: UInt): Int
-@SymbolName("pigpio_kniBridge55")
-private external fun kniBridge55(p0: UInt, p1: UInt, p2: UInt): Int
-@SymbolName("pigpio_kniBridge56")
-private external fun kniBridge56(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge57")
-private external fun kniBridge57(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge58")
-private external fun kniBridge58(p0: UInt, p1: UInt, p2: UInt): Int
-@SymbolName("pigpio_kniBridge59")
-private external fun kniBridge59(p0: UInt, p1: UInt, p2: NativePtr, p3: UInt): Int
-@SymbolName("pigpio_kniBridge60")
-private external fun kniBridge60(p0: UInt, p1: UInt, p2: NativePtr): Int
-@SymbolName("pigpio_kniBridge61")
-private external fun kniBridge61(p0: UInt, p1: UInt, p2: NativePtr, p3: UInt): Int
-@SymbolName("pigpio_kniBridge62")
-private external fun kniBridge62(p0: UInt, p1: UInt, p2: NativePtr, p3: UInt): Int
-@SymbolName("pigpio_kniBridge63")
-private external fun kniBridge63(p0: UInt, p1: UInt, p2: NativePtr, p3: UInt): Int
-@SymbolName("pigpio_kniBridge64")
-private external fun kniBridge64(p0: UInt, p1: NativePtr, p2: UInt): Int
-@SymbolName("pigpio_kniBridge65")
-private external fun kniBridge65(p0: UInt, p1: NativePtr, p2: UInt): Int
-@SymbolName("pigpio_kniBridge66")
-private external fun kniBridge66(p0: Int): Unit
-@SymbolName("pigpio_kniBridge67")
-private external fun kniBridge67(p0: UInt, p1: NativePtr, p2: UInt): Int
-@SymbolName("pigpio_kniBridge68")
-private external fun kniBridge68(p0: UInt, p1: NativePtr, p2: UInt, p3: NativePtr, p4: UInt): Int
-@SymbolName("pigpio_kniBridge69")
-private external fun kniBridge69(p0: UInt, p1: UInt, p2: UInt): Int
-@SymbolName("pigpio_kniBridge70")
-private external fun kniBridge70(p0: UInt): Int
-@SymbolName("pigpio_kniBridge71")
-private external fun kniBridge71(p0: UInt, p1: NativePtr, p2: UInt, p3: NativePtr, p4: UInt): Int
-@SymbolName("pigpio_kniBridge72")
-private external fun kniBridge72(p0: NativePtr): Int
-@SymbolName("pigpio_kniBridge73")
-private external fun kniBridge73(p0: UInt, p1: UInt, p2: UInt, p3: UInt, p4: UInt, p5: UInt): Int
-@SymbolName("pigpio_kniBridge74")
-private external fun kniBridge74(p0: UInt): Int
-@SymbolName("pigpio_kniBridge75")
-private external fun kniBridge75(p0: UInt, p1: NativePtr, p2: NativePtr, p3: UInt): Int
-@SymbolName("pigpio_kniBridge76")
-private external fun kniBridge76(p0: UInt, p1: UInt, p2: UInt): Int
-@SymbolName("pigpio_kniBridge77")
-private external fun kniBridge77(p0: UInt): Int
-@SymbolName("pigpio_kniBridge78")
-private external fun kniBridge78(p0: UInt, p1: NativePtr, p2: UInt): Int
-@SymbolName("pigpio_kniBridge79")
-private external fun kniBridge79(p0: UInt, p1: NativePtr, p2: UInt): Int
-@SymbolName("pigpio_kniBridge80")
-private external fun kniBridge80(p0: UInt, p1: NativePtr, p2: NativePtr, p3: UInt): Int
-@SymbolName("pigpio_kniBridge81")
-private external fun kniBridge81(p0: NativePtr, p1: UInt, p2: UInt): Int
-@SymbolName("pigpio_kniBridge82")
-private external fun kniBridge82(p0: UInt): Int
-@SymbolName("pigpio_kniBridge83")
-private external fun kniBridge83(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge84")
-private external fun kniBridge84(p0: UInt): Int
-@SymbolName("pigpio_kniBridge85")
-private external fun kniBridge85(p0: UInt, p1: NativePtr, p2: UInt): Int
-@SymbolName("pigpio_kniBridge86")
-private external fun kniBridge86(p0: UInt, p1: NativePtr, p2: UInt): Int
-@SymbolName("pigpio_kniBridge87")
-private external fun kniBridge87(p0: UInt): Int
-@SymbolName("pigpio_kniBridge88")
-private external fun kniBridge88(p0: UInt, p1: UInt, p2: UInt): Int
-@SymbolName("pigpio_kniBridge89")
-private external fun kniBridge89(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge90")
-private external fun kniBridge90(p0: UInt, p1: UInt, p2: UInt): Int
-@SymbolName("pigpio_kniBridge91")
-private external fun kniBridge91(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge92")
-private external fun kniBridge92(p0: NativePtr, p1: UInt): Int
-@SymbolName("pigpio_kniBridge93")
-private external fun kniBridge93(p0: NativePtr, p1: UInt, p2: NativePtr): Int
-@SymbolName("pigpio_kniBridge94")
-private external fun kniBridge94(p0: UInt, p1: UInt, p2: NativePtr): Int
-@SymbolName("pigpio_kniBridge95")
-private external fun kniBridge95(p0: UInt, p1: UInt, p2: NativePtr, p3: NativePtr): Int
-@SymbolName("pigpio_kniBridge96")
-private external fun kniBridge96(p0: NativePtr): Unit
-@SymbolName("pigpio_kniBridge97")
-private external fun kniBridge97(p0: NativePtr): Int
-@SymbolName("pigpio_kniBridge98")
-private external fun kniBridge98(p0: UInt, p1: UInt, p2: NativePtr): Int
-@SymbolName("pigpio_kniBridge99")
-private external fun kniBridge99(p0: UInt, p1: UInt, p2: NativePtr): Int
-@SymbolName("pigpio_kniBridge100")
-private external fun kniBridge100(p0: UInt, p1: NativePtr): Int
-@SymbolName("pigpio_kniBridge101")
-private external fun kniBridge101(p0: UInt): Int
-@SymbolName("pigpio_kniBridge102")
-private external fun kniBridge102(p0: UInt): Int
-@SymbolName("pigpio_kniBridge103")
-private external fun kniBridge103(p0: UInt, p1: NativePtr): Int
-@SymbolName("pigpio_kniBridge104")
-private external fun kniBridge104(p0: UInt, p1: NativePtr, p2: NativePtr): Int
-@SymbolName("pigpio_kniBridge105")
-private external fun kniBridge105(): UInt
-@SymbolName("pigpio_kniBridge106")
-private external fun kniBridge106(): UInt
-@SymbolName("pigpio_kniBridge107")
-private external fun kniBridge107(p0: UInt): Int
-@SymbolName("pigpio_kniBridge108")
-private external fun kniBridge108(p0: UInt): Int
-@SymbolName("pigpio_kniBridge109")
-private external fun kniBridge109(p0: UInt): Int
-@SymbolName("pigpio_kniBridge110")
-private external fun kniBridge110(p0: UInt): Int
-@SymbolName("pigpio_kniBridge111")
-private external fun kniBridge111(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge112")
-private external fun kniBridge112(p0: UInt, p1: UInt, p2: UInt): Int
-@SymbolName("pigpio_kniBridge113")
-private external fun kniBridge113(p0: UInt, p1: NativePtr, p2: NativePtr): Int
-@SymbolName("pigpio_kniBridge114")
-private external fun kniBridge114(p0: UInt, p1: Int, p2: Int): Int
-@SymbolName("pigpio_kniBridge115")
-private external fun kniBridge115(p0: UInt): UInt
-@SymbolName("pigpio_kniBridge116")
-private external fun kniBridge116(): UInt
-@SymbolName("pigpio_kniBridge117")
-private external fun kniBridge117(): UInt
-@SymbolName("pigpio_kniBridge118")
-private external fun kniBridge118(): UInt
-@SymbolName("pigpio_kniBridge119")
-private external fun kniBridge119(p0: UInt): Int
-@SymbolName("pigpio_kniBridge120")
-private external fun kniBridge120(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge121")
-private external fun kniBridge121(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge122")
-private external fun kniBridge122(p0: UInt, p1: NativePtr): Int
-@SymbolName("pigpio_kniBridge123")
-private external fun kniBridge123(p0: UInt, p1: NativePtr, p2: NativePtr): Int
-@SymbolName("pigpio_kniBridge124")
-private external fun kniBridge124(p0: UInt): Int
-@SymbolName("pigpio_kniBridge125")
-private external fun kniBridge125(p0: NativePtr, p1: NativePtr): Int
-@SymbolName("pigpio_kniBridge126")
-private external fun kniBridge126(p0: NativePtr, p1: UInt): Int
-@SymbolName("pigpio_kniBridge127")
-private external fun kniBridge127(p0: UInt): Int
-@SymbolName("pigpio_kniBridge128")
-private external fun kniBridge128(p0: UInt, p1: NativePtr, p2: UInt): Int
-@SymbolName("pigpio_kniBridge129")
-private external fun kniBridge129(p0: UInt, p1: NativePtr, p2: UInt): Int
-@SymbolName("pigpio_kniBridge130")
-private external fun kniBridge130(p0: UInt, p1: Int, p2: Int): Int
-@SymbolName("pigpio_kniBridge131")
-private external fun kniBridge131(p0: NativePtr, p1: NativePtr, p2: UInt): Int
-@SymbolName("pigpio_kniBridge132")
-private external fun kniBridge132(p0: UInt): Int
-@SymbolName("pigpio_kniBridge133")
-private external fun kniBridge133(p0: UInt, p1: UInt, p2: UInt): Int
-@SymbolName("pigpio_kniBridge134")
-private external fun kniBridge134(p0: UInt): Int
-@SymbolName("pigpio_kniBridge135")
-private external fun kniBridge135(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge136")
-private external fun kniBridge136(p0: ULong): Int
-@SymbolName("pigpio_kniBridge137")
-private external fun kniBridge137(p0: UInt): Int
-@SymbolName("pigpio_kniBridge138")
-private external fun kniBridge138(p0: UInt): Int
-@SymbolName("pigpio_kniBridge139")
-private external fun kniBridge139(p0: UInt): Int
-@SymbolName("pigpio_kniBridge140")
-private external fun kniBridge140(p0: Int, p1: NativePtr): Int
-@SymbolName("pigpio_kniBridge141")
-private external fun kniBridge141(p0: UInt, p1: UInt): Int
-@SymbolName("pigpio_kniBridge142")
-private external fun kniBridge142(): UInt
-@SymbolName("pigpio_kniBridge143")
-private external fun kniBridge143(p0: UInt): Int
-@SymbolName("pigpio_kniBridge144")
-private external fun kniBridge144(p0: UInt, p1: UInt, p2: NativePtr, p3: UInt): Int
-@SymbolName("pigpio_kniBridge145")
-private external fun kniBridge145(p0: UInt, p1: NativePtr, p2: UInt, p3: NativePtr, p4: UInt): Int
-@SymbolName("pigpio_kniBridge146")
-private external fun kniBridge146(p0: NativePtr, p1: UInt, p2: UInt, p3: NativePtr, p4: UInt, p5: UInt, p6: UInt, p7: UInt): Int
-@SymbolName("pigpio_kniBridge147")
-private external fun kniBridge147(p0: UInt, p1: NativePtr): Int
-@SymbolName("pigpio_kniBridge148")
-private external fun kniBridge148(): UInt
-@SymbolName("pigpio_kniBridge149")
-private external fun kniBridge149(p0: Int): NativePtr
-@SymbolName("pigpio_kniBridge150")
-private external fun kniBridge150(p0: Int): UInt
-@SymbolName("pigpio_kniBridge151")
-private external fun kniBridge151(p0: Int, p1: UInt): Unit
-@SymbolName("pigpio_kniBridge152")
-private external fun kniBridge152(p0: Int): UInt
-@SymbolName("pigpio_kniBridge153")
-private external fun kniBridge153(p0: Int, p1: UInt): Unit
-@SymbolName("pigpio_kniBridge154")
-private external fun kniBridge154(p0: Int): UInt
-@SymbolName("pigpio_kniBridge155")
-private external fun kniBridge155(p0: Int, p1: UInt): Unit
-@SymbolName("pigpio_kniBridge156")
-private external fun kniBridge156(p0: Int, p1: NativePtr): Unit
-@SymbolName("pigpio_kniBridge157")
-private external fun kniBridge157(p0: Int, p1: NativePtr, p2: Int): Int
-@SymbolName("pigpio_kniBridge158")
-private external fun kniBridge158(p0: Int, p1: NativePtr, p2: Int): Unit
-@SymbolName("pigpio_kniBridge159")
-private external fun kniBridge159(): Double
-@SymbolName("pigpio_kniBridge160")
-private external fun kniBridge160(p0: Double): Unit
-@SymbolName("pigpio_kniBridge161")
-private external fun kniBridge161(): Unit
-@SymbolName("pigpio_kniBridge162")
-private external fun kniBridge162(p0: UInt): Unit
