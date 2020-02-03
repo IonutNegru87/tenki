@@ -3,10 +3,12 @@
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false" isTestModule="true" externalProjectId="tenki-station">
+        <dependsOnModuleNames>tenki-station_commonTest</dependsOnModuleNames>
         <sourceSets>
           <sourceSet>tenki-station.serverMain</sourceSet>
         </sourceSets>
         <newMppModelJpsModuleKind>COMPILATION_AND_SOURCE_SET_HOLDER</newMppModelJpsModuleKind>
+        <externalSystemTestTasks>serverTest|tenki-station:serverTest|server</externalSystemTestTasks>
         <compilerSettings>
           <option name="additionalArguments" value="-Xallow-no-source-files" />
         </compilerSettings>
