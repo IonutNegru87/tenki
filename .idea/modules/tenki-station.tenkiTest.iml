@@ -32,26 +32,26 @@
     <content url="file://$MODULE_DIR$/../../src/tenkiTest" />
     <orderEntry type="jdk" jdkName="Kotlin SDK" jdkType="KotlinSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Kotlin/Native 1.3.61 - zlib [linux_arm32_hfp]" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Kotlin/Native 1.3.61 - posix [linux_arm32_hfp]" level="project" />
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../build/classes/kotlin/tenki/main/tenki-station-cinterop-pca9685.klib!/" />
+          <root url="jar://$MODULE_DIR$/../../build/classes/kotlin/tenki/main/tenki-station-cinterop-pigpio.klib!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" scope="PROVIDED" name="Kotlin/Native 1.3.61 - linux [linux_arm32_hfp]" level="project" />
+    <orderEntry type="module" module-name="tenki-station.tenkiMain" scope="TEST" />
+    <orderEntry type="library" scope="PROVIDED" name="Kotlin/Native 1.3.61 - builtin [linux_arm32_hfp]" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Kotlin/Native 1.3.61 - posix [linux_arm32_hfp]" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Kotlin/Native 1.3.61 - iconv [linux_arm32_hfp]" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Kotlin/Native 1.3.61 - stdlib" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Kotlin/Native 1.3.61 - builtin [linux_arm32_hfp]" level="project" />
-    <orderEntry type="module" module-name="tenki-station.tenkiMain" scope="TEST" />
+    <orderEntry type="library" scope="PROVIDED" name="Kotlin/Native 1.3.61 - linux [linux_arm32_hfp]" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Kotlin/Native 1.3.61 - zlib [linux_arm32_hfp]" level="project" />
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../build/classes/kotlin/tenki/main/tenki-station-cinterop-pigpio.klib!/" />
+          <root url="jar://$MODULE_DIR$/../../build/classes/kotlin/tenki/main/tenki-station-cinterop-pca9685.klib!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
