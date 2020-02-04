@@ -17,7 +17,7 @@ $ ./gradlew deployOnPi
 
 > Note: you have to configure the [passwordless SSH access](https://www.raspberrypi.org/documentation/remote-access/ssh/passwordless.md) on your Pi to make the SSH plugin work.
 > 
-> Follow instructions described bellow: [Go to How to SSH into a Raspberry Pi](#how-to-ssh-into-a-raspberry-pissh-for-raspberrpi)
+> Follow instructions described bellow: [Go to How to SSH into a Raspberry Pi](#how-to-ssh-into-a-raspberry-pi)
 
 If it's the first time you deploy on your Pi, you need to make sure your `.kexe` file is executable, then execute the binary with `sudo` to test with your circuit:
 
