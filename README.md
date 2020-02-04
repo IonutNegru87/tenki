@@ -1,6 +1,31 @@
 # tenki
 Weather station developed in Kotlin Native for Raspberry Pi
 
+## Generate the executable
+
+Compile the project:
+
+```
+$ ./gradlew build
+```
+
+After a successful build you should be able to see that the binaries are generated under the `build/bin/tenki` folder. In order to test the binary, deploy it on your Pi via SSH, make sure you update the SSH configuration, source folder and destination folder in `build.gradle` with your own configurations:
+
+```
+$ ./gradlew deployOnPi
+```
+
+> Note: you have to configure the [passwordless SSH access](https://www.raspberrypi.org/documentation/remote-access/ssh/passwordless.md) on your Pi to make the SSH plugin work.
+> 
+> Follow instructions described bellow: [Go to How to SSH into a Raspberry Pi](#how-to-ssh-into-a-raspberry-pissh-for-raspberrpi)
+
+If it's the first time you deploy on your Pi, you need to make sure your `.kexe` file is executable, then execute the binary with `sudo` to test with your circuit:
+
+```
+$ chmod 777 tenki-station.kexe
+$ sudo ./tenki-station.kexe
+```
+
 ## How to SSH into a Raspberry Pi
 
 1. **Activate SSH in Raspbian**
