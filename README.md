@@ -1,5 +1,55 @@
 # tenki
-Weather station developed in Kotlin Native for Raspberry Pi
+Weather station developed in Kotlin Native for Raspberry Pi with the main purpose to demonstrate that with Kotlin Native we can generate native binaries which can run without a virtual machine on multiple machine.
+
+Raspberry Pi device was used in this project
+
+This project is Work In Progress and should be treated as such.
+
+Feel free to provide feedback and add contributions to the project.
+
+## Install C libraries on your Pi
+
+This part explains how to install different dependencies on your raspberry pi in order to test the project.
+
+### Prerequisites
+
+Make sure you have `cmake` installed on your raspberry pi:
+
+```
+$ sudo apt-get install cmake
+```
+
+### The pigpio library
+
+A library for the Raspberry which allows control of the General Purpose Input Outputs (GPIO), works on all versions of the Pi
+
+https://github.com/joan2937/pigpio
+
+Connect to your pi with SSH and execute the following commands:
+```
+$ git clone https://github.com/joan2937/pigpio
+$ cd pigpio
+$ make
+$ sudo make install
+```
+
+Copy the `.so` to your machine for cross compilation.
+
+### The PCA9685 library
+
+https://github.com/edlins/libPCA9685
+
+Connect to your pi with SSH and execute the following commands:
+```
+$ git clone https://github.com/edlins/libPCA9685
+$ cd libPCA9685 && mkdir build && cd build
+$ cmake ..
+$ make
+$ ctest
+$ sudo make install
+```
+
+Copy the `.so` to your machine for cross compilation.
 
 ## Generate the executable
 
